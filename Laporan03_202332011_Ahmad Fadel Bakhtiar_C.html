@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laporan Praktikum - 03</title>
+
+  <!-- Memuat CSS Bootstrap untuk styling responsif -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Memuat CSS SweetAlert2 untuk tampilan alert yang menarik -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Laporan Praktikum - 03</h2>
+
+    <!-- Form input data mahasiswa -->
+    <form id="laporanForm">
+      <!-- Input Nama dan NIM -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="nama" class="form-label">Masukkan Nama:</label>
+          <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Kamu">
+        </div>
+        <div class="col-md-6">
+          <label for="nim" class="form-label">Masukkan NIM:</label>
+          <input type="text" class="form-control" id="nim" placeholder="Masukkan NIM Kamu">
+        </div>
+      </div>
+
+      <!-- Input Asal, Dosen Favorit, dan Tanggal Lahir -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label for="asal" class="form-label">Masukkan Asal Kamu:</label>
+          <input type="text" class="form-control" id="asal">
+        </div>
+        <div class="col-md-4">
+          <label for="dosen" class="form-label">Pilih Dosen Favorit:</label>
+          <select id="dosen" class="form-select">
+            <option value="">Pilih salah satu</option>
+            <option value="Pak Nasril">Pak Nasril</option>
+            <option value="Bu Yuni Roza">Bu Yuni Roza</option>
+            <option value="Bu Gemma">Bu Gemma</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="tgl" class="form-label">Pilih Tanggal Lahir Anda:</label>
+          <input type="date" class="form-control" id="tgl">
+        </div>
+      </div>
+
+      <!-- Input Hal Favorit, Teman Favorit, dan AI Favorit -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label for="favorit" class="form-label"><strong>Tulis Hal Favorit Kamu:</strong></label>
+          <input type="text" class="form-control" id="favorit" placeholder="Contoh: Membaca, Coding">
+        </div>
+        <div class="col-md-3">
+          <label for="teman" class="form-label">Masukkan Nama Teman Favorit:</label>
+          <input type="text" class="form-control" id="teman">
+        </div>
+        <div class="col-md-3">
+          <label for="ai" class="form-label">Masukkan AI Favorit:</label>
+          <input type="text" class="form-control" id="ai">
+        </div>
+      </div>
+
+      <!-- Tombol untuk submit form -->
+      <button type="submit" class="btn btn-success w-100">Kirim</button>
+    </form>
+  </div>
+
+  <!-- Memuat Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Memuat SweetAlert2 untuk menampilkan notifikasi -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Script validasi data form -->
+  <script>
+    // Ambil elemen form berdasarkan ID
+    const form = document.getElementById("laporanForm");
+
+    // Tambahkan event listener saat form disubmit
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Mencegah halaman reload saat form disubmit
+      validateForm(); // Panggil fungsi validasi
+    });
+
+    // Fungsi untuk memvalidasi semua input form
+    function validateForm() {
+      // Ambil semua nilai input dan simpan dalam objek
+      const data = {
+        nama: document.getElementById("nama").value.trim(),
+        nim: document.getElementById("nim").value.trim(),
+        asal: document.getElementById("asal").value.trim(),
+        dosen: document.getElementById("dosen").value,
+        tgl: document.getElementById("tgl").value,
+        favorit: document.getElementById("favorit").value.trim(),
+        teman: document.getElementById("teman").value.trim(),
+        ai: document.getElementById("ai").value.trim()
+      };
+
+      // Periksa satu per satu apakah ada input yang kosong
+      for (const key in data) {
+        if (data[key] === "") {
+          Swal.fire(
+            'Oops...',
+            `Bagian ${key.toUpperCase()} belum diisi!`,
+            'error'
+          );
+          return; // Hentikan proses jika ada yang kosong
+        }
+      }
+
+      // Jika semua data sudah lengkap, tampilkan notifikasi sukses
+      Swal.fire(
+        'Berhasil!',
+        'Semua data telah lengkap dan dikirim.',
+        'success'
+      );
+    }
+  </script>
+</body>
+</html>
